@@ -67,12 +67,12 @@ export default function ZonesComponent({zones}: ZonesComponentProps): JSX.Elemen
         <p>Т+МТ(13) - Вторичка + минитрежа</p>
       </div>
       {zoneGroups.map((zoneGroup, zoneIdx) => (
-        <div className="w-full m-3">
+        <div className="w-full m-3" key={zoneIdx}>
           <div style={{borderColor: zoneColors[zoneIdx], borderWidth: '2px'}}
                className="flex w-full justify-center  lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4 bg-gray-400 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
                onClick={() => setExpanded(expanded === zoneIdx ? -1 : zoneIdx)}> {zoneNames[zoneIdx]}
           </div>
-          {zoneIdx === expanded && (<ZoneComponent key={zoneGroup[0]} zone={zones[zoneGroup[0] - 1]}/>)}
+          {zoneIdx === expanded && (<ZoneComponent zone={zones[zoneGroup[0] - 1]}/>)}
         </div>))
       }
     </div>
