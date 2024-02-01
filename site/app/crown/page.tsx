@@ -3,6 +3,7 @@
 import {useEffect, useLayoutEffect, useState} from "react";
 import ZonesComponent, {TemplateConfig, ZoneGroup} from "@/app/Zones";
 import {NavigationBar} from "@/app/NavigationBar";
+import {useWindowSize} from "@/app/util";
 
 const templateConfig: TemplateConfig = {
   zoneGroups: [
@@ -65,19 +66,6 @@ const templateConfig: TemplateConfig = {
     "Т - большая трежа",
     "МТ - минитрежери"
   ]
-}
-
-export function useWindowSize() {
-  const [size, setSize] = useState([0, 0]);
-  useLayoutEffect(() => {
-    function updateSize() {
-      setSize([window.innerWidth, window.innerHeight]);
-    }
-    window.addEventListener('resize', updateSize);
-    updateSize();
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
-  return size;
 }
 
 export default function Page() {

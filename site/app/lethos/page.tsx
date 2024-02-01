@@ -3,8 +3,7 @@
 import {useEffect, useState} from "react";
 import ZonesComponent, {TemplateConfig, ZoneGroup} from "@/app/Zones";
 import {NavigationBar} from "@/app/NavigationBar";
-import {useWindowSize} from "@/app/crown/page";
-
+import {useWindowSize} from "@/app/util";
 
 const templateConfig: TemplateConfig = {
   zoneGroups: [
