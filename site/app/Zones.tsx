@@ -21,6 +21,7 @@ export type ZoneGroup = {
   color: string,
   name: string,
   zoneNumbers: number[]
+  objectGroup: number
 }
 
 export type TemplateConfig = {
@@ -36,12 +37,11 @@ type ZonesComponentProps = {
 
 export default function ZonesComponent({zones, templateConfig}: ZonesComponentProps): JSX.Element {
   const [expanded, setExpanded] = useState(-1)
-  useEffect(() => {
-    zones.forEach(zone => zone.objectSets.forEach(set => set.objects.forEach(obj => obj.chance *= set.chance)))
-  }, [zones]);
   return (
-    <div className="flex flex-col items-center">
-      <Image src={templateConfig.templateImage} alt={"Template"} width={600} height={200}/>
+    <div className="flex flex-col items-center w-full">
+      <div className="relative w-full" style={{height: 350, minWidth: 600}}>
+        <Image src={templateConfig.templateImage} alt={"Template"} fill objectFit={"contain"}/>
+      </div>
       <div className={"w-full"}>
         {templateConfig.description.map(it => (<p key={it}>{it}</p>))}
       </div>
@@ -51,7 +51,7 @@ export default function ZonesComponent({zones, templateConfig}: ZonesComponentPr
                className="flex w-full justify-center  lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4 bg-gray-400 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
                onClick={() => setExpanded(expanded === zoneIdx ? -1 : zoneIdx)}> {zoneGroup.name}
           </div>
-          {zoneIdx === expanded && (<ZoneComponent zone={zones[zoneGroup.zoneNumbers[0] - 1]}/>)}
+          {zoneIdx === expanded && (<ZoneComponent objectSet={zones[zoneGroup.zoneNumbers[0] - 1].objectSets[zoneGroup.objectGroup]}/>)}
         </div>))
       }
     </div>

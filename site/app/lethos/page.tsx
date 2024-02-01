@@ -2,6 +2,8 @@
 
 import {useEffect, useState} from "react";
 import ZonesComponent, {TemplateConfig, ZoneGroup} from "@/app/Zones";
+import {NavigationBar} from "@/app/NavigationBar";
+import {useWindowSize} from "@/app/crown/page";
 
 
 const templateConfig: TemplateConfig = {
@@ -9,32 +11,38 @@ const templateConfig: TemplateConfig = {
     {
       name: "Стартовые",
       color: "#FF0000",
-      zoneNumbers: [1, 2]
+      zoneNumbers: [1, 2],
+      objectGroup: 0
     },
     {
       name: "Промежуточные 3, 6",
       color: "#FFFF00",
-      zoneNumbers: [3, 6]
+      zoneNumbers: [3, 6],
+      objectGroup: 0
     },
     {
       name: "Промежуточные 4, 5",
       color: "#00FF00",
-      zoneNumbers: [4, 5]
+      zoneNumbers: [4, 5],
+      objectGroup: 0
     },
     {
       name: "Миницентры",
       color: "#00FFFF",
-      zoneNumbers: [7, 8, 9, 10]
+      zoneNumbers: [7, 8, 9, 10],
+      objectGroup: 0
     },
     {
       name: "Трежери",
       color: "#0000FF",
-      zoneNumbers: [13]
+      zoneNumbers: [13],
+      objectGroup: 0
     },
     {
       name: "Вторичка+Минитрежа",
       color: "#FF00FF",
-      zoneNumbers: [1, 2]
+      zoneNumbers: [1, 2],
+      objectGroup: 0
     }
   ],
   templateImage: "/img/lethos_c.png",
@@ -59,12 +67,16 @@ export default function Page() {
         console.log(error)
       })
   }, [])
+  const [_, height] = useWindowSize();
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
-      {
-        isError ? (<h1>Failed to loadTemplate</h1>)
-          : <ZonesComponent zones={getZones} templateConfig={templateConfig}/>
-      }
+    <main className="flex flex-col items-center justify-between mt-20 overflow-scroll" style={{height: (height - 80)}}>
+      <NavigationBar/>
+      <div className="pt-2">
+        {
+          isError ? (<h1>Failed to loadTemplate</h1>)
+            : <ZonesComponent zones={getZones} templateConfig={templateConfig}/>
+        }
+      </div>
     </main>
   )
 }

@@ -1,51 +1,83 @@
 'use client'
 
-import {useEffect, useState} from "react";
+import {useEffect, useLayoutEffect, useState} from "react";
 import ZonesComponent, {TemplateConfig, ZoneGroup} from "@/app/Zones";
+import {NavigationBar} from "@/app/NavigationBar";
 
 const templateConfig: TemplateConfig = {
-  zoneGroups:  [
+  zoneGroups: [
     {
       zoneNumbers: [1, 2],
       name: "Стартовые",
-      color: "#FF0000"
+      color: "#FF0000",
+      objectGroup: 0
     },
     {
       zoneNumbers: [3, 4, 5, 6],
       color: "#FFFF00",
-      name: "Промежуточные"
+      name: "Промежуточные",
+      objectGroup: 0
     },
     {
       zoneNumbers: [7, 8, 9, 10],
       color: "#00FF00",
-      name: "Ресурсная/Минитрежа/Вторик"
+      name: "Р/МТ/В - Ресурсная (40%)",
+      objectGroup: 0
+    },
+    {
+      zoneNumbers: [7, 8, 9, 10],
+      color: "#00FF00",
+      name: "Р/МТ/В - Минитрежа (45%)",
+      objectGroup: 0
+    },
+    {
+      zoneNumbers: [7, 8, 9, 10],
+      color: "#00FF00",
+      name: "Р/МТ/В - Вторик (15%)",
+      objectGroup: 2
     },
     {
       zoneNumbers: [11, 12, 13, 14],
       color: "#00FFFF",
-      name: "Золотая"
+      name: "Золотая",
+      objectGroup: 0
     },
     {
       zoneNumbers: [15],
       color: "#0000FF",
-      name: "Минитрежа"
+      name: "Минитрежа",
+      objectGroup: 0
     },
     {
       zoneNumbers: [16, 17],
       color: "#FF00FF",
-      name: "Трежери"
+      name: "Трежери",
+      objectGroup: 0
     }
   ],
   templateImage: "/img/crown.png",
   description: [
     "Все неподписанные проходы - 60",
     "1,2 - стартовые зоны",
-    "р/мт/в - ресурсная (40%) или минитрежа(45%) или вторичка (15%)",
+    "Р/МТ/В - ресурсная (40%)/минитрежа(45%)/вторик (15%)",
     "п - промежуточные зоны",
-    "Зал - центр, золотые шахты, нормальные арты",
+    "Зол - центр, золотые шахты, нормальные арты",
     "Т - большая трежа",
     "МТ - минитрежери"
   ]
+}
+
+export function useWindowSize() {
+  const [size, setSize] = useState([0, 0]);
+  useLayoutEffect(() => {
+    function updateSize() {
+      setSize([window.innerWidth, window.innerHeight]);
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+  return size;
 }
 
 export default function Page() {
@@ -60,12 +92,16 @@ export default function Page() {
         console.log(error)
       })
   }, [])
+  const [_, height] = useWindowSize();
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
-      {
-        isError ? (<h1>Failed to loadTemplate</h1>)
-          : <ZonesComponent zones={getZones} templateConfig={templateConfig}/>
-      }
+    <main className="flex flex-col items-center justify-between mt-20 overflow-scroll" style={{height: (height-80)}}>
+      <NavigationBar/>
+      <div className="pt-2">
+        {
+          isError ? (<h1>Failed to loadTemplate</h1>)
+            : <ZonesComponent zones={getZones} templateConfig={templateConfig}/>
+        }
+      </div>
     </main>
   )
 }
