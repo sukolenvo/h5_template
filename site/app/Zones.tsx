@@ -1,6 +1,6 @@
 import ZoneComponent from "@/app/Zone";
 import Image from "next/image";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export type Object = {
   name: string
@@ -36,7 +36,9 @@ type ZonesComponentProps = {
 
 export default function ZonesComponent({zones, templateConfig}: ZonesComponentProps): JSX.Element {
   const [expanded, setExpanded] = useState(-1)
-
+  useEffect(() => {
+    zones.forEach(zone => zone.objectSets.forEach(set => set.objects.forEach(obj => obj.chance *= set.chance)))
+  }, [zones]);
   return (
     <div className="flex flex-col items-center">
       <Image src={templateConfig.templateImage} alt={"Template"} width={600} height={200}/>
