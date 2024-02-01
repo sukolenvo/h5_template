@@ -3,47 +3,48 @@
 import {useEffect, useState} from "react";
 import ZonesComponent, {TemplateConfig, ZoneGroup} from "@/app/Zones";
 
-
 const templateConfig: TemplateConfig = {
-  zoneGroups: [
+  zoneGroups:  [
     {
+      zoneNumbers: [1, 2],
       name: "Стартовые",
-      color: "#FF0000",
-      zoneNumbers: [1, 2]
+      color: "#FF0000"
     },
     {
-      name: "Промежуточные 3, 6",
+      zoneNumbers: [3, 4, 5, 6],
       color: "#FFFF00",
-      zoneNumbers: [3, 6]
+      name: "Промежуточные"
     },
     {
-      name: "Промежуточные 4, 5",
+      zoneNumbers: [7, 8, 9, 10],
       color: "#00FF00",
-      zoneNumbers: [4, 5]
+      name: "Ресурсная/Минитрежа/Вторик"
     },
     {
-      name: "Миницентры",
+      zoneNumbers: [11, 12, 13, 14],
       color: "#00FFFF",
-      zoneNumbers: [7, 8, 9, 10]
+      name: "Золотая"
     },
     {
-      name: "Трежери",
+      zoneNumbers: [15],
       color: "#0000FF",
-      zoneNumbers: [13]
+      name: "Минитрежа"
     },
     {
-      name: "Вторичка+Минитрежа",
+      zoneNumbers: [16, 17],
       color: "#FF00FF",
-      zoneNumbers: [1, 2]
+      name: "Трежери"
     }
   ],
-  templateImage: "/img/lethos_c.png",
+  templateImage: "/img/crown.png",
   description: [
-    "1,2 - Стартовые зоны: руда дерево, лвл 1-2 банки",
-    "3,4,5,6 - Промежуточные зоны: покинутая шахта, мелкие сокровищницы",
-    "7,8,9,10 - Миницентры: приличная охрана, арты, сокровищницы, дерево/руда - 2 случайных, случайные двеллинги",
-    "11,12 - Трежери",
-    "Т+МТ(13) - Вторичка + минитрежа"
+    "Все неподписанные проходы - 60",
+    "1,2 - стартовые зоны",
+    "р/мт/в - ресурсная (40%) или минитрежа(45%) или вторичка (15%)",
+    "п - промежуточные зоны",
+    "Зал - центр, золотые шахты, нормальные арты",
+    "Т - большая трежа",
+    "МТ - минитрежери"
   ]
 }
 
@@ -51,7 +52,7 @@ export default function Page() {
   const [isError, setError] = useState(false)
   const [getZones, setZones] = useState([])
   useEffect(() => {
-    fetch("../lethos.json")
+    fetch("../crown.json")
       .then(response => response.json())
       .then(data => setZones(data))
       .catch(error => {
