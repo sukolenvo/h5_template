@@ -1,7 +1,7 @@
 'use client'
 
 import {useEffect, useState} from "react";
-import ZonesComponent, {TemplateConfig, ZoneGroup} from "@/app/Zones";
+import ZonesComponent, {TemplateConfig} from "@/app/Zones";
 import {NavigationBar} from "@/app/NavigationBar";
 import {useWindowSize} from "@/app/util";
 
