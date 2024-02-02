@@ -32,15 +32,15 @@ const templateConfig: TemplateConfig = {
       objectGroup: 0
     },
     {
-      name: "Трежери",
+      name: "Вторичка+Минитрежа",
       color: "#0000FF",
       zoneNumbers: [13],
       objectGroup: 0
     },
     {
-      name: "Вторичка+Минитрежа",
+      name: "Трежери",
       color: "#FF00FF",
-      zoneNumbers: [1, 2],
+      zoneNumbers: [11, 12],
       objectGroup: 0
     }
   ],
