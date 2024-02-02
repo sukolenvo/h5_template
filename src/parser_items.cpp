@@ -27,7 +27,7 @@ std::string find_attribute(const std::vector<simple_cpp::xml::Attribute> &attrib
     return attr.name == name;
   });
   if (it == std::end(attributes)) {
-    throw std::invalid_argument(std::string("Cannot read attribute") + name);
+    return "";
   }
   return it->value;
 }
