@@ -55,8 +55,12 @@ void ParserItems::on_tag_start(const std::vector<std::string> &tagXmlPath,
     if (maxNumber.empty()) {
       maxNumber = "0";
     }
+    auto value = 0;
+    if (find_attribute(attributes, "ShouldBeGuarded") == "true") {
+      value = parseInteger(find_attribute(attributes, "Value"));
+    }
     const auto name = find_attribute(attributes, "Name");
     const auto type = *++tagXmlPath.rbegin();
-    zones.back().objectSets.back().objects.emplace_back(name, type, parseInteger(maxNumber), parseDouble(chance));
+    zones.back().objectSets.back().objects.emplace_back(name, type, parseInteger(maxNumber), parseDouble(chance), value);
   }
 }

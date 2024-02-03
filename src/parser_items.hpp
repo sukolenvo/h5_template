@@ -14,6 +14,7 @@ struct Object
   std::string type;
   int maxNumber;
   double chance;
+  int value;
 };
 
 struct ObjectSet
@@ -32,7 +33,8 @@ template<> struct glz::meta<Object>
 {
   using T = Object;
   static constexpr auto value =
-    object("name", &Object::name, "type", &Object::type, "maxNumber", &Object::maxNumber, "chance", &Object::chance);
+    object("name", &Object::name, "type", &Object::type, "maxNumber", &Object::maxNumber, "chance", &Object::chance,
+      "value", &Object::value);
 };
 
 template<> struct glz::meta<ObjectSet>

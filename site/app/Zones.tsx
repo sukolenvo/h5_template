@@ -7,6 +7,7 @@ export type Object = {
   type: string
   maxNumber: number
   chance: number
+  value: number
 }
 export type ObjectSet = {
   chance: number
