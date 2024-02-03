@@ -40,7 +40,7 @@ export default function ZonesComponent({zones, templateConfig}: ZonesComponentPr
   return (
     <div className="flex flex-col items-center w-full">
       <div className="relative w-full" style={{height: 350, minWidth: 600}}>
-        <Image src={templateConfig.templateImage} alt={"Template"} fill objectFit={"contain"}/>
+        <Image src={templateConfig.templateImage} alt={"Template"} fill style={{objectFit: "contain"}}/>
       </div>
       <div className={"w-full"}>
         {templateConfig.description.map(it => (<p key={it}>{it}</p>))}

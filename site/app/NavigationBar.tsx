@@ -12,6 +12,7 @@ export function NavigationBar() {
       <Link href="/m3/" className={`link hover:opacity-75 ${pathname === '/m3' ? '' : 'opacity-50'}`}>M3</Link>
       <Link href="/maze/" className={`link hover:opacity-75 ${pathname === '/maze' ? '' : 'opacity-50'}`}>Maze</Link>
       <Link href="/rainbow/" className={`link hover:opacity-75 ${pathname === '/rainbow' ? '' : 'opacity-50'}`}>Rainbow</Link>
+      <Link href="/spider/" className={`link hover:opacity-75 ${pathname === '/spider' ? '' : 'opacity-50'}`}>Spider</Link>
     </div>
   )
 }
