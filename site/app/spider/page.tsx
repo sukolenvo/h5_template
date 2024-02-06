@@ -38,15 +38,15 @@ const templateConfig: TemplateConfig = {
       objectGroup: 0
     },
     {
-      name: "Трежери",
-      color: "#0040ff",
-      zoneNumbers: [12, 13],
-      objectGroup: 0
-    },
-    {
       name: "Супер ресурсная",
       color: "#8000ff",
       zoneNumbers: [14, 15],
+      objectGroup: 0
+    },
+    {
+      name: "Трежери",
+      color: "#0040ff",
+      zoneNumbers: [12, 13],
       objectGroup: 0
     },
   ],

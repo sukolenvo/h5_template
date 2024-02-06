@@ -26,15 +26,23 @@ struct ObjectSet
 struct Zone
 {
   int number;
+  std::string terrainType;
   std::vector<ObjectSet> objectSets;
 };
 
 template<> struct glz::meta<Object>
 {
   using T = Object;
-  static constexpr auto value =
-    object("name", &Object::name, "type", &Object::type, "maxNumber", &Object::maxNumber, "chance", &Object::chance,
-      "value", &Object::value);
+  static constexpr auto value = object("name",
+    &Object::name,
+    "type",
+    &Object::type,
+    "maxNumber",
+    &Object::maxNumber,
+    "chance",
+    &Object::chance,
+    "value",
+    &Object::value);
 };
 
 template<> struct glz::meta<ObjectSet>
@@ -46,7 +54,8 @@ template<> struct glz::meta<ObjectSet>
 template<> struct glz::meta<Zone>
 {
   using T = Zone;
-  static constexpr auto value = object("number", &Zone::number, "objectSets", &Zone::objectSets);
+  static constexpr auto value =
+    object("number", &Zone::number, "terrainType", &Zone::terrainType, "objectSets", &Zone::objectSets);
 };
 
 class ParserItems : public simple_cpp::xml::Parser
@@ -66,6 +75,7 @@ public:
 protected:
   void on_tag_start(const std::vector<std::string> &tagXmlPath,
     const std::vector<simple_cpp::xml::Attribute> &attributes) override;
+  void on_character_data(const std::vector<std::string> &xmlPath, const std::string &data) override;
 };
 
 #endif // SIMPLE_CPP_H5_TEMPLATE_PARSER_ITEMS_HPP
