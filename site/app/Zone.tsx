@@ -33,12 +33,13 @@ const excludeItems = ["Rally_Flag", "RefugeeCamp", "Water_Wheel", "Stables",
   "Fountain_Of_Youth", "Temple", "Windmill", "Den_Of_Thieves", "Magic_Well", "Fountain_Of_Fortune", "Star_Axis", "Idol_Of_Fortune",
 "House_Of_Astrologer", "Mummy_dwell_new", "Sanctuary", "Dark_knight_new",
 "Eye_Of_Magi3", "Black_Market", "Fortuitous_Sanctuary", "Wolf_dwell_new", "Manticore_Cave_new", "Eye_Of_Magi1", "Eye_Of_Magi2",
-  "Hut_Of_Magi1", "Hut_Of_Magi2", "Magic_Spring", "Hut_Of_Magi3", "Faerie_Ring", "Tavern"]
+  "Hut_Of_Magi1", "Hut_Of_Magi2", "Magic_Spring", "Hut_Of_Magi3", "Faerie_Ring", "Tavern",
+  "Sawmill", "Ore_Pit", "Gold_Mine", "Sulfur_Dune", "Crystal_Cavern", "Gem_Pond", "Alchemist_Lab", "Abandoned_Mine"]
 
 export default function ZoneComponent({objectSet}: ZoneProps) {
   const objects = objectSet.objects
     .filter(obj => excludeItems.indexOf(obj.name) === -1)
-    .filter(obj => obj.maxNumber !== 0 || obj.chance !== 0)
+    .filter(obj => obj.maxNumber !== 0 && obj.chance !== 0)
     .map(obj => <ObjectComponent key={obj.name} object={obj}/>);
   return (
     <div>

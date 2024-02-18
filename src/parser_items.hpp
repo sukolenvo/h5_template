@@ -23,11 +23,23 @@ struct ObjectSet
   std::vector<Object> objects;
 };
 
+struct MinesInfo {
+  Object saw;
+  Object ore;
+  Object gold;
+  Object sulfur;
+  Object crystal;
+  Object gem;
+  Object alchemist;
+  Object abandoned;
+};
+
 struct Zone
 {
   int number;
   std::string terrainType;
   std::vector<ObjectSet> objectSets;
+  MinesInfo minesInfo;
 };
 
 template<> struct glz::meta<Object>
@@ -76,6 +88,7 @@ protected:
   void on_tag_start(const std::vector<std::string> &tagXmlPath,
     const std::vector<simple_cpp::xml::Attribute> &attributes) override;
   void on_character_data(const std::vector<std::string> &xmlPath, const std::string &data) override;
+  void on_tag_end(const std::string &tagName) override;
 };
 
 #endif // SIMPLE_CPP_H5_TEMPLATE_PARSER_ITEMS_HPP
