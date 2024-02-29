@@ -44,7 +44,7 @@ const templateConfig: TemplateConfig = {
       objectGroup: 0
     }
   ],
-  templateImage: "/img/lethos_c.png",
+  templateImage: "/lethos.drawio.svg",
   description: [
     "1,2 - Стартовые зоны: руда дерево, лвл 1-2 банки",
     "3,4,5,6 - Промежуточные зоны: покинутая шахта, мелкие сокровищницы",

@@ -71,7 +71,7 @@ export default function ZonesComponent({zones, templateConfig}: ZonesComponentPr
       </div>
       {templateConfig.zoneGroups.map((zoneGroup, zoneIdx) => (
         <div className="w-full m-3" key={zoneIdx}>
-          <div style={{borderColor: zoneGroup.color, borderWidth: '2px'}}
+          <div style={{borderColor: zoneGroup.color, borderWidth: '3px'}}
                className="flex w-full justify-center items-center lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4 bg-gray-400 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
                onClick={() => setExpanded(expanded === zoneIdx ? -1 : zoneIdx)}> {zoneGroup.name}
             {zones[zoneGroup.zoneNumbers[0] - 1]?.terrainType === "Grass" && ZoneIcon("grass", "Terrain Grass")}
