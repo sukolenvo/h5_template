@@ -15,49 +15,49 @@ const templateConfig: TemplateConfig = {
     },
     {
       name: "Промежуточные 3, 5, 7, 8",
-      color: "#ffbf00",
+      color: "#ffd500",
       zoneNumbers: [3, 5, 7, 8],
       objectGroup: 0
     },
     {
       name: "Промежуточные 4, 6",
-      color: "#80ff00",
+      color: "#55FF00",
       zoneNumbers: [4, 6],
       objectGroup: 0
     },
     {
       name: "Минитрежери",
-      color: "#FF00bF",
+      color: "#FF00fF",
       zoneNumbers: [9, 10],
       objectGroup: 0
     },
     {
       name: "ГО",
-      color: "#00ffFF",
+      color: "#00AA80",
       zoneNumbers: [11],
       objectGroup: 0
     },
     {
       name: "Супер ресурсная",
-      color: "#8000ff",
+      color: "#00AAFF",
       zoneNumbers: [14, 15],
       objectGroup: 0
     },
     {
       name: "Трежери",
-      color: "#0040ff",
+      color: "#4455FF",
       zoneNumbers: [12, 13],
       objectGroup: 0
     },
   ],
-  templateImage: "/img/Spider.png",
+  templateImage: "/spider.drawio.svg",
   description: [
     "1,2 - стартовые зоны",
     "3,4,5,6,7,8 - промежуточные зоны: простые арты, повышалки, халява, гномницы, горгульни, склепы",
     "9,10 - минитрежери: золотая шахта, арты мажоры, сильные сокровищницы, магазины",
+    "11 - Зона ГО",
     "12,13 - трежери: арты мажоры и реликвии, сильные сокровищницы, утопы, затонувшие храмы, магазины, ментор",
     "14,15 - супер ресурсные зоны: все шахты, 2 золотые, арты миноры и простые мажоры, горгульни, элементальницы, гномятни, склепы, энтярни, шанс на форт на холме",
-    "11 - Зона ГО",
   ]
 }
 

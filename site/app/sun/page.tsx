@@ -15,19 +15,19 @@ const templateConfig: TemplateConfig = {
     },
     {
       name: "Промежуточная",
-      color: "#ffbf00",
+      color: "#FFD500",
       zoneNumbers: [3, 5],
       objectGroup: 0
     },
     {
       name: "Ресурсная",
-      color: "#80ff00",
+      color: "#55FF00",
       zoneNumbers: [4, 6],
       objectGroup: 0
     },
     {
       name: "Золотая",
-      color: "#FF00bF",
+      color: "#FF00FF",
       zoneNumbers: [7, 8],
       objectGroup: 0
     },
@@ -39,7 +39,7 @@ const templateConfig: TemplateConfig = {
     },
     {
       name: "Вторик",
-      color: "#0040ff",
+      color: "#4455FF",
       zoneNumbers: [11, 12],
       objectGroup: 0
     },
@@ -50,15 +50,15 @@ const templateConfig: TemplateConfig = {
       objectGroup: 0
     },
   ],
-  templateImage: "/img/sun_new.png",
+  templateImage: "/sun.drawio.svg",
   description: [
-    "И1,И2 - стартовые зоны",
-    "Р - ресурсная: все шахты",
-    "П - промежуточная: банки",
-    "З - шахты золота, средние артефакты",
-    "МТ - хорошие банки, мажоры",
-    "В - зоны с нейтральными городами",
-    "Т - трежери: утопы и реликты",
+    "1,2 - стартовые зоны",
+    "4,6 - ресурсная: все шахты",
+    "3,5 - промежуточная: банки",
+    "7,8 - золотая: шахты золота, средние артефакты",
+    "9,10 - трежери: утопы и реликты",
+    "11,12 - вторик: зоны с нейтральными городами",
+    "13,14 - минитрежери: хорошие банки, мажоры",
   ]
 }
 
