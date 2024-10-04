@@ -31,6 +31,7 @@ export type TemplateConfig = {
   zoneGroups: ZoneGroup[]
   templateImage: string
   description: string[]
+  magi: string[]
 }
 
 type ZonesComponentProps = {
