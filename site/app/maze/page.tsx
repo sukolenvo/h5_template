@@ -1,9 +1,9 @@
 'use client'
 
-import {useEffect, useState} from "react";
 import ZonesComponent, {TemplateConfig} from "@/app/Zones";
 import {NavigationBar} from "@/app/NavigationBar";
 import {useWindowSize} from "@/app/util";
+import zones from './maze.json'
 
 const colorZoneStart = "#FF0000"
 const colorZoneProme = "#FFd500"
@@ -73,25 +73,13 @@ const templateConfig: TemplateConfig = {
 }
 
 export default function Page() {
-  const [isError, setError] = useState(false)
-  const [getZones, setZones] = useState([])
-  useEffect(() => {
-    fetch("../maze.json")
-      .then(response => response.json())
-      .then(data => setZones(data))
-      .catch(error => {
-        setError(true);
-        console.log(error)
-      })
-  }, [])
   const [_, height] = useWindowSize();
   return (
     <main className="flex flex-col items-center justify-between mt-20 overflow-scroll" style={{height: (height - 80)}}>
       <NavigationBar/>
-      <div className="pt-2">
+      <div className="pt-2 pl-6 pr-6 w-full" style={{maxWidth: "1500px"}}>
         {
-          isError ? (<h1>Failed to loadTemplate</h1>)
-            : <ZonesComponent zones={getZones} templateConfig={templateConfig}/>
+          <ZonesComponent zones={zones} templateConfig={templateConfig}/>
         }
       </div>
     </main>
@@ -107,19 +95,20 @@ function EyeNarrative() {
       <img src={"/img/Eye_Of_Magi.png"} alt="Eye Of Magi"
            style={{maxWidth: "24px", objectFit: "contain", objectPosition: "top"}}/>
       <div>
-      <p>Око мага из <span className={"zoneName"} style={{borderColor: colorZoneProme}}>промзоны</span> (3, 4, 5, 6)
-        показывает <span className={"zoneName"} style={{borderColor: colorZoneResource}}>ресурсные</span> зоны (7, 8), если повезет - можно
-        увидить охрану портала
-        35 с другой стороны
+        <p>Око мага из <span className={"zoneName"} style={{borderColor: colorZoneProme}}>промзоны</span> (3, 4, 5, 6)
+          показывает <span className={"zoneName"} style={{borderColor: colorZoneResource}}>ресурсные</span> зоны (7, 8),
+          если повезет - можно увидеть охрану портала 35 с другой стороны
         </p>
-      <p><span className={"zoneName"} style={{borderColor: colorZoneResource}}>Ресурсные</span> (7, 8) и <span
+        <p><span className={"zoneName"} style={{borderColor: colorZoneResource}}>Ресурсные</span> (7, 8) и <span
           className={"zoneName"} style={{borderColor: colorZoneCenter}}>центры</span> (9, 10) показывают оба <span
           className={"zoneName"} style={{borderColor: colorZoneCenter}}>центрa</span> (9, 10)
         </p>
-        <p> <span className={"zoneName"} style={{borderColor: colorZoneTown}}>Вторики</span> (11, 12) и <span className={"zoneName"} style={{borderColor: colorZoneMG}}>ГО</span> (15)
-          показывают <span className={"zoneName"} style={{borderColor: colorZoneTreasure}}>трежи</span> (13, 14 по 2 глаза) и <span className={"zoneName"} style={{borderColor: colorZoneStart}}>стартовые</span> зоны (1, 2)
+        <p><span className={"zoneName"} style={{borderColor: colorZoneTown}}>Вторики</span> (11, 12) и <span
+          className={"zoneName"} style={{borderColor: colorZoneMG}}>ГО</span> (15)
+          показывают <span className={"zoneName"} style={{borderColor: colorZoneTreasure}}>трежи</span> (13, 14 по 2
+          глаза) и <span className={"zoneName"} style={{borderColor: colorZoneStart}}>стартовые</span> зоны (1, 2)
         </p>
       </div>
     </div>
-)
+  )
 }

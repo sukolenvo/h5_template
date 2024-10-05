@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import ZonesComponent, {TemplateConfig} from "@/app/Zones";
 import {NavigationBar} from "@/app/NavigationBar";
 import {useWindowSize} from "@/app/util";
+import zones from './m3.json'
 
 const templateConfig: TemplateConfig = {
   zoneGroups: [
@@ -65,25 +66,13 @@ const templateConfig: TemplateConfig = {
 }
 
 export default function Page() {
-  const [isError, setError] = useState(false)
-  const [getZones, setZones] = useState([])
-  useEffect(() => {
-    fetch("../m3.json")
-      .then(response => response.json())
-      .then(data => setZones(data))
-      .catch(error => {
-        setError(true);
-        console.log(error)
-      })
-  }, [])
   const [_, height] = useWindowSize();
   return (
     <main className="flex flex-col items-center justify-between mt-20 overflow-scroll" style={{height: (height - 80)}}>
       <NavigationBar/>
-      <div className="pt-2">
+      <div className="pt-2 pl-6 pr-6 w-full" style={{maxWidth: "1500px"}}>
         {
-          isError ? (<h1>Failed to loadTemplate</h1>)
-            : <ZonesComponent zones={getZones} templateConfig={templateConfig}/>
+          <ZonesComponent zones={zones} templateConfig={templateConfig}/>
         }
       </div>
     </main>

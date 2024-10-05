@@ -40,17 +40,17 @@ type ZonesComponentProps = {
   templateConfig: TemplateConfig
 }
 
-const guaranteedObservatory = (zone: Zone): boolean => {
-  return guaranteed(zone, "Redwood_Observatory")
+const guaranteedObservatory = (objectSet: ObjectSet): boolean => {
+  return guaranteed(objectSet, "Redwood_Observatory")
 }
 
-const guaranteed = (zone: Zone, objectName: string): boolean => {
-  return zone.objectSets.filter(it => it.chance !== 0).every(set => set.objects.find(obj => obj.chance === 1 && obj.maxNumber > 0 && obj.name === objectName))
+const guaranteed = (objectSet: ObjectSet, objectName: string): boolean => {
+  return objectSet.objects.find(obj => obj.chance === 1 && obj.maxNumber > 0 && obj.name === objectName) !== undefined
 }
 
-const guaranteedMills = (zone: Zone): string[] => {
+const guaranteedMills = (objectSet: ObjectSet): string[] => {
   return ["Sawmill", "Ore_Pit", "Gold_Mine", "Sulfur_Dune", "Crystal_Cavern", "Gem_Pond", "Alchemist_Lab", "Abandoned_Mine"]
-    .filter(it => guaranteed(zone, it))
+    .filter(it => guaranteed(objectSet, it))
 }
 
 const ZoneIcon = (icon: string, description: string) => {
@@ -68,7 +68,7 @@ export default function ZonesComponent({zones, templateConfig}: ZonesComponentPr
       <div className="relative w-full" style={{height: 350, minWidth: 600}}>
         <Image src={templateConfig.templateImage} alt={"Template"} fill style={{objectFit: "contain"}}/>
       </div>
-      <div className="flex flex-col space-y-1">
+      <div className="flex flex-col space-y-1 w-full">
         <div className="flex flex-row space-x-1">
           <InfoOutlined color={"info"}/>
           <div className={"w-full"}>
@@ -77,20 +77,21 @@ export default function ZonesComponent({zones, templateConfig}: ZonesComponentPr
         </div>
         {templateConfig.eyeNarrative}
       </div>
-      {templateConfig.zoneGroups.map((zoneGroup, zoneIdx) => (
-        <div className="w-full m-3" key={zoneIdx}>
-          <div style={{borderColor: zoneGroup.color, borderWidth: '3px'}}
-               className="flex w-full justify-center items-center lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4 bg-gray-400 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-               onClick={() => setExpanded(expanded === zoneIdx ? -1 : zoneIdx)}> {zoneGroup.name}
-            {zones[zoneGroup.zoneNumbers[0] - 1]?.terrainType === "Grass" && ZoneIcon("grass", "Terrain Grass")}
-            {zones[zoneGroup.zoneNumbers[0] - 1] && guaranteedObservatory(zones[zoneGroup.zoneNumbers[0] - 1]) &&
-              ZoneIcon("ic_Redwood_Observatory", "Observatory")}
-            {zones[zoneGroup.zoneNumbers[0] - 1] && guaranteedMills(zones[zoneGroup.zoneNumbers[0] - 1]).map(mill =>
-              ZoneIcon(mill, mill))}
-          </div>
-          {zoneIdx === expanded && (
-            <ZoneComponent objectSet={zones[zoneGroup.zoneNumbers[0] - 1].objectSets[zoneGroup.objectGroup]}/>)}
-        </div>))
+      {templateConfig.zoneGroups.map((zoneGroup, zoneIdx) => {
+        const zone = zones[zoneGroup.zoneNumbers[0] - 1];
+        const objectSet = zone?.objectSets[zoneGroup.objectGroup]
+        return (
+          <div className="w-full m-3" key={zoneIdx}>
+            <div style={{borderColor: zoneGroup.color, borderWidth: '3px'}}
+                 className="flex w-full justify-center items-center lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4 bg-gray-400 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+                 onClick={() => setExpanded(expanded === zoneIdx ? -1 : zoneIdx)}> {zoneGroup.name}
+              {zone?.terrainType === "Grass" && ZoneIcon("grass", "Terrain Grass")}
+              {objectSet && guaranteedObservatory(objectSet) && ZoneIcon("ic_Redwood_Observatory", "Observatory")}
+              {objectSet && guaranteedMills(objectSet).map(mill => ZoneIcon(mill, mill))}
+            </div>
+            {zoneIdx === expanded && (<ZoneComponent objectSet={objectSet}/>)}
+          </div>);
+      })
       }
     </div>
   )

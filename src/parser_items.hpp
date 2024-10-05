@@ -17,12 +17,6 @@ struct Object
   int value;
 };
 
-struct ObjectSet
-{
-  double chance;
-  std::vector<Object> objects;
-};
-
 struct MinesInfo {
   Object saw;
   Object ore;
@@ -32,6 +26,13 @@ struct MinesInfo {
   Object gem;
   Object alchemist;
   Object abandoned;
+};
+
+struct ObjectSet
+{
+  double chance;
+  std::vector<Object> objects;
+  MinesInfo minesInfo;
 };
 
 struct Zone

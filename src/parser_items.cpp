@@ -60,13 +60,11 @@ void ParserItems::on_tag_start(const std::vector<std::string> &tagXmlPath,
     zones.push_back(zone);
   } else if (tagXmlPath.back().starts_with("ObjectsSet")) {
     ObjectSet objectSet;
+    objectSet.minesInfo = zones.back().minesInfo;
     objectSet.chance = parseDouble(find_attribute(attributes, "Appear_Chance"));
     zones.back().objectSets.push_back(objectSet);
   } else if (tagXmlPath.back() == "Object") {
     const auto chance = find_attribute(attributes, "Chance");
-    if (chance == "0.0") {
-      return;
-    }
     auto maxNumber = find_attribute(attributes, "MaxNumber");
     if (maxNumber.empty()) {
       maxNumber = "0";
@@ -78,7 +76,19 @@ void ParserItems::on_tag_start(const std::vector<std::string> &tagXmlPath,
       value = 0;
     }
     const auto name = find_attribute(attributes, "Name");
-    zones.back().objectSets.back().objects.emplace_back(name, type, parseInteger(maxNumber), parseDouble(chance), value);
+    if (name == "Mines") {
+      MinesInfo &minesInfo = zones.back().objectSets.back().minesInfo;
+      minesInfo.saw.value = value;
+      minesInfo.saw.chance = parseDouble(chance);
+      minesInfo.saw.maxNumber = parseInteger(maxNumber);
+      minesInfo.ore.value = value;
+      minesInfo.ore.chance = parseDouble(chance);
+      minesInfo.ore.maxNumber = parseInteger(maxNumber);
+    } else {
+      if (chance != "0.0") {
+        zones.back().objectSets.back().objects.emplace_back(name, type, parseInteger(maxNumber), parseDouble(chance), value);
+      }
+    }
   } else if (tagXmlPath.back() == "Mines") {
     MinesInfo &minesInfo = zones.back().minesInfo;
     auto value = find_attribute(attributes, "Sawmill");
@@ -189,17 +199,15 @@ void ParserItems::on_character_data(const std::vector<std::string> &xmlPath, con
 }
 void ParserItems::on_tag_end(const std::string &tagName)
 {
-  if (tagName.starts_with("Zone") && tagName != "Zones") {
-    auto &zone = zones.back();
-    for (auto &set : zone.objectSets) {
-      set.objects.push_back(zone.minesInfo.saw);
-      set.objects.push_back(zone.minesInfo.ore);
-      set.objects.push_back(zone.minesInfo.gold);
-      set.objects.push_back(zone.minesInfo.sulfur);
-      set.objects.push_back(zone.minesInfo.crystal);
-      set.objects.push_back(zone.minesInfo.gem);
-      set.objects.push_back(zone.minesInfo.alchemist);
-      set.objects.push_back(zone.minesInfo.abandoned);
-    }
+  if (tagName.starts_with("ObjectsSet")) {
+    auto &set = zones.back().objectSets.back();
+    set.objects.push_back(set.minesInfo.saw);
+    set.objects.push_back(set.minesInfo.ore);
+    set.objects.push_back(set.minesInfo.gold);
+    set.objects.push_back(set.minesInfo.sulfur);
+    set.objects.push_back(set.minesInfo.crystal);
+    set.objects.push_back(set.minesInfo.gem);
+    set.objects.push_back(set.minesInfo.alchemist);
+    set.objects.push_back(set.minesInfo.abandoned);
   }
 }
