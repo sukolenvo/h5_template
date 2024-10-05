@@ -23,3 +23,7 @@ body {
     text-wrap: balance;
   }
 }
+
+.eyeNarrative .zoneName {
+  border-bottom: 3px solid;
+}

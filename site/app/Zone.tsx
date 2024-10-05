@@ -12,7 +12,7 @@ export type ObjectProp = {
 
 export function ObjectComponent({object}: ObjectProp) {
   return (
-    <div className="flex flex-row items-center">
+    <div className="flex flex-row items-center" style={{maxWidth: "350px"}}>
       <Image className="m-1" style={{borderRadius: '25%', maxHeight: '64px', objectFit: "contain"}} src={`/img/${object.name}.png`} alt={object.name} width={64} height={64}/>
       <div >
         <p>{object.name}: {Math.round(object.chance * 100) + "% "}
@@ -37,13 +37,29 @@ const excludeItems = ["Rally_Flag", "RefugeeCamp", "Water_Wheel",
   "Sawmill", "Ore_Pit", "Gold_Mine", "Sulfur_Dune", "Crystal_Cavern", "Gem_Pond", "Alchemist_Lab", "Abandoned_Mine"]
 
 export default function ZoneComponent({objectSet}: ZoneProps) {
+  const [artifacts, setArtifacts] = useState(true)
+  const [other, setOther] = useState(true)
   const objects = objectSet.objects
+    .filter(obj => artifacts && obj.type === "Artifacts" || other && obj.type !== "Artifacts")
     .filter(obj => excludeItems.indexOf(obj.name) === -1)
     .filter(obj => obj.maxNumber !== 0 && obj.chance !== 0)
     .map(obj => <ObjectComponent key={obj.name} object={obj}/>);
+
   return (
     <div>
-      {objects}
+      <div className={"flex justify-center p-1 space-x-3"}>
+        <label>
+          <input type={"checkbox"} onChange={e => setArtifacts(e.target.checked)} checked={artifacts}/>
+          Артефакты
+        </label>
+        <label>
+          <input type={"checkbox"}  onChange={e => setOther(e.target.checked)} checked={other}/>
+          Другие объекты
+        </label>
+      </div>
+      <div className="grid " style={{gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))"}}>
+        {objects}
+      </div>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import ZoneComponent from "@/app/Zone";
 import Image from "next/image";
 import {useEffect, useState} from "react";
+import {InfoOutlined} from "@mui/icons-material";
 
 export type Object = {
   name: string
@@ -31,7 +32,7 @@ export type TemplateConfig = {
   zoneGroups: ZoneGroup[]
   templateImage: string
   description: string[]
-  magi: string[]
+  eyeNarrative?: React.ReactElement
 }
 
 type ZonesComponentProps = {
@@ -67,8 +68,14 @@ export default function ZonesComponent({zones, templateConfig}: ZonesComponentPr
       <div className="relative w-full" style={{height: 350, minWidth: 600}}>
         <Image src={templateConfig.templateImage} alt={"Template"} fill style={{objectFit: "contain"}}/>
       </div>
-      <div className={"w-full"}>
-        {templateConfig.description.map(it => (<p key={it}>{it}</p>))}
+      <div className="flex flex-col space-y-1">
+        <div className="flex flex-row space-x-1">
+          <InfoOutlined color={"info"}/>
+          <div className={"w-full"}>
+            {templateConfig.description.map(it => (<p key={it}>{it}</p>))}
+          </div>
+        </div>
+        {templateConfig.eyeNarrative}
       </div>
       {templateConfig.zoneGroups.map((zoneGroup, zoneIdx) => (
         <div className="w-full m-3" key={zoneIdx}>
