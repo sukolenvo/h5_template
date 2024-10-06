@@ -40,16 +40,12 @@ type ZonesComponentProps = {
   templateConfig: TemplateConfig
 }
 
-const guaranteedObservatory = (objectSet: ObjectSet): boolean => {
-  return guaranteed(objectSet, "Redwood_Observatory")
-}
-
 const guaranteed = (objectSet: ObjectSet, objectName: string): boolean => {
   return objectSet.objects.find(obj => obj.chance === 1 && obj.maxNumber > 0 && obj.name === objectName) !== undefined
 }
 
-const guaranteedMills = (objectSet: ObjectSet): string[] => {
-  return ["Sawmill", "Ore_Pit", "Gold_Mine", "Sulfur_Dune", "Crystal_Cavern", "Gem_Pond", "Alchemist_Lab", "Abandoned_Mine"]
+const guaranteedObjects = (objectSet: ObjectSet): string[] => {
+  return [ "Redwood_Observatory", "Magic_Spring", "Sawmill", "Ore_Pit", "Gold_Mine", "Sulfur_Dune", "Crystal_Cavern", "Gem_Pond", "Alchemist_Lab", "Abandoned_Mine"]
     .filter(it => guaranteed(objectSet, it))
 }
 
@@ -79,15 +75,14 @@ export default function ZonesComponent({zones, templateConfig}: ZonesComponentPr
       </div>
       {templateConfig.zoneGroups.map((zoneGroup, zoneIdx) => {
         const zone = zones[zoneGroup.zoneNumbers[0] - 1];
-        const objectSet = zone?.objectSets[zoneGroup.objectGroup]
+        const objectSet = zone.objectSets[zoneGroup.objectGroup]
         return (
           <div className="w-full m-3" key={zoneIdx}>
             <div style={{borderColor: zoneGroup.color, borderWidth: '3px'}}
                  className="flex w-full justify-center items-center lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4 bg-gray-400 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
                  onClick={() => setExpanded(expanded === zoneIdx ? -1 : zoneIdx)}> {zoneGroup.name}
               {zone?.terrainType === "Grass" && ZoneIcon("grass", "Terrain Grass")}
-              {objectSet && guaranteedObservatory(objectSet) && ZoneIcon("ic_Redwood_Observatory", "Observatory")}
-              {objectSet && guaranteedMills(objectSet).map(mill => ZoneIcon(mill, mill))}
+              {guaranteedObjects(objectSet).map(mill => ZoneIcon(mill, mill))}
             </div>
             {zoneIdx === expanded && (<ZoneComponent objectSet={objectSet}/>)}
           </div>);

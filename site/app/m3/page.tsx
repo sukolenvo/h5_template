@@ -39,7 +39,7 @@ const templateConfig: TemplateConfig = {
       objectGroup: 0
     },
     {
-      name: "Золотая (G)",
+      name: "Золотая",
       color: "#FF00FF",
       zoneNumbers: [15],
       objectGroup: 0
